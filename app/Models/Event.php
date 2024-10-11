@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
     use HasFactory;
-
+    use HasUuids;
+    
     protected $table = 'event';
-
-    protected $casts = [
-        'id' => 'string',
-    ];
 
     protected $fillable = [
         'name', 'event_date', 'place', 'capacity', 'description', 'creator_id',
@@ -29,7 +27,6 @@ class Event extends Model
     public function participants()
     {
         return $this->belongsToMany(User::class, 'participant')
-                    ->withTimestamps()
                     ->withPivot('joined_at');
     }
 

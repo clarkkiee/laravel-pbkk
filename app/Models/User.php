@@ -50,6 +50,6 @@ class User extends Authenticatable
     }
 
     public function joinedEvents(){
-        return $this->belongsToMany(Event::class, 'participant')->withTimestamps()->withPivot('joined_at');
+        return $this->belongsToMany(Event::class, 'participant')->withPivot('joined_at');
     }
 }
