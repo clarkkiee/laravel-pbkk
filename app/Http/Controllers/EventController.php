@@ -74,6 +74,21 @@ class EventController extends Controller
         }
     }
 
+    public function join ($eventId) {
+        $event = Event::findOrFail($eventId);
+
+        if($event->participants()->where('user_id', Auth::id())->exists()) {
+            return redirect()->back()->with('error', 'Anda sudah bergabung dalam event ini.');
+        }
+
+        if($event->participants()->count() >= $event->capacity) {
+            return redirect()->back()->with('error', 'Kuota peserta event ini sudah penuh.');
+        }
+
+        $event->participants()->attach(Auth::id(), ['joined_at' => now()]);
+        return redirect()->back()->with('error', 'Anda berhasil bergabung dalam event ini.');
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

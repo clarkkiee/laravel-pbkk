@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ParticipantController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -22,9 +23,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('event', EventController::class);
     Route::get('/event', [EventController::class, 'index'])->name('events.index');
     Route::post('/event', [EventController::class, 'store'])->name('events.store');
-});
 
-// Route::get('/users', [UserController::class, 'index']);
+    Route::post('/event/{id}/join', [EventController::class, 'join'])->name('events.join');
+
+    // Route::post('/participant/join', [ParticipantController::class, 'store'])->name('participants.store');
+
+});
 
 
 require __DIR__.'/auth.php';
