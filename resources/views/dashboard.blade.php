@@ -8,7 +8,6 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg relative">
-                <!-- Close button -->
                 <button onclick="document.getElementById('logged-in-message').style.display='none'" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800">
                     &times;
                 </button>
@@ -20,8 +19,9 @@
         </div>
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
-            <div class="flex justify-between space-x-6"> 
-                <div class="bg-dark-main shadow-lg rounded-lg overflow-hidden w-1/2">
+            <div class="flex flex-col md:flex-row justify-between space-y-6 md:space-y-0 md:space-x-6"> 
+                
+                <div class="bg-dark-main shadow-lg rounded-lg overflow-hidden md:w-1/2">
                     <div class="p-4">
                         <img src="{{ asset('images/create_event.jpg') }}" alt="Create Event" class="h-96 w-full object-cover rounded-md">
                     </div>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-                <div class="bg-dark-main shadow-lg rounded-lg overflow-hidden w-1/2">
+                <div class="bg-dark-main shadow-lg rounded-lg overflow-hidden md:w-1/2">
                     <div class="p-4">
                         <img src="{{ asset('images/join_event.jpg') }}" alt="Join Event" class="h-96 w-full object-cover rounded-md">
                     </div>
