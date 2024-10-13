@@ -104,7 +104,8 @@ class EventController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $event = Event::findOrFail($id);
+        return view('events.edit', compact('event'));
     }
 
     /**
@@ -112,7 +113,20 @@ class EventController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $event = Event::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'event_date' => 'required|date',
+            'place' => 'required',
+            'capacity' => 'required|integer|min:1',
+            'description' => 'nullable',
+        ]);
+
+        $event->update($validatedData);
+
+        return redirect()->route('dashboard')->with('success', 'Event updated successfully.');
+
     }
 
     /**
@@ -120,6 +134,10 @@ class EventController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $event = Event::findOrFail($id);
+
+        $event->delete();
+        return redirect()->route('dashboard')->with('success', 'Event deleted successfully.');
+
     }
 }
