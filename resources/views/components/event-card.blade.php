@@ -7,9 +7,9 @@
         <p class="mb-1 font-normal text-dark-main"><strong>Date: </strong>{{ $event->event_date }}</p>
         <p class="mb-1 font-normal text-dark-main"><strong>Place: </strong>{{ $event->place }}</p>
         <p class="mb-2 font-normal text-dark-main text-sm "><strong>Capacity: </strong>{{ $event->capacity }}</p>
-        <p class="mb-8 font-normal text-dark-main text-ellipsis line-clamp-2">{{ $event->description }}</p>
+        <p class="mb-4 font-normal text-dark-main text-ellipsis line-clamp-2">{{ $event->description }}</p>
 
-        <div class="relative mb-2 font-semibold text-red-500 text-md h-1">
+        <div class="relative mb-6 font-semibold text-red-500 text-md h-1">
             @if ($event->participants->count() == $event->capacity && !$event->participants()->where('user_id', Auth::id())->exists())
                 <p>Event is Full</p>
             @elseif ($event->participants->count() == $event->capacity && $event->participants()->where('user_id', Auth::id())->exists())
