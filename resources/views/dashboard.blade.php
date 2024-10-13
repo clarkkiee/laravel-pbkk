@@ -17,34 +17,59 @@
                 </div>
             </div>
         </div>
+        
 
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
-            <div class="flex flex-col md:flex-row justify-between space-y-6 md:space-y-0 md:space-x-6"> 
+        <div class="flex flex-col gap-8 max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
                 
-                <div class="bg-dark-main shadow-lg rounded-lg overflow-hidden md:w-1/2">
-                    <div class="p-4">
-                        <img src="{{ asset('images/create_event.jpg') }}" alt="Create Event" class="h-96 w-full object-cover rounded-md">
+                <div class="flex gap-4">
+                    
+                    <div class="flex flex-col bg-dark-main shadow-lg rounded-lg overflow-hidden md:w-1/2 h-max">
+                        <img src="{{ asset('images/create_event.jpg') }}" alt="Join Event" class="h-64 w-full object-cover rounded-md">
+                        <div class="p-6 flex justify-center">
+                            <a href="/event/create" 
+                               class="inline-block text-center w-1/2 px-4 py-2 bg-accent text-white font-bold rounded-md shadow-lg transition transform hover:bg-accent-dark hover:-translate-y-1 focus:ring focus:ring-accent-light">
+                               Create Event Now!
+                            </a>
+                        </div>
                     </div>
-                    <div class="p-6 flex justify-center">
-                        <a href="/event/create" 
-                           class="inline-block text-center w-1/2 px-4 py-2 bg-accent text-white font-bold rounded-md shadow-lg transition transform hover:bg-accent-dark hover:-translate-y-1 focus:ring focus:ring-accent-light">
-                            Create Event Now!
-                        </a>
+
+                    <div class="flex flex-col bg-dark-main shadow-lg rounded-lg overflow-hidden md:w-1/2 h-max">
+                        <img src="{{ asset('images/join_event.jpg') }}" alt="Join Event" class="h-64 w-full object-cover rounded-md">
+                        <div class="p-6 flex justify-center">
+                            <a href="/event" 
+                               class="inline-block text-center w-1/2 px-4 py-2 bg-accent text-white font-bold rounded-md shadow-lg transition transform hover:bg-accent-dark hover:-translate-y-1 focus:ring focus:ring-accent-light">
+                                Join Event Now!
+                            </a>
+                        </div>
                     </div>
+                </div>
+                
+                <div class="flex flex-col">
+
+                    <h1 class="text-2xl my-4 font-bold text-dark-main">Your Events</h1>
+
+                    @if ($events->isEmpty())
+                        <p class="text-dark-main">You have not created any events yet.</p>
+                    @else
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mx-auto">
+                            @foreach ($events as $event)
+                                <x-event-card-creator :event="$event" />
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
 
-                <div class="bg-dark-main shadow-lg rounded-lg overflow-hidden md:w-1/2">
-                    <div class="p-4">
-                        <img src="{{ asset('images/join_event.jpg') }}" alt="Join Event" class="h-96 w-full object-cover rounded-md">
-                    </div>
-                    <div class="p-6 flex justify-center">
-                        <a href="/event" 
-                           class="inline-block text-center w-1/2 px-4 py-2 bg-accent text-white font-bold rounded-md shadow-lg transition transform hover:bg-accent-dark hover:-translate-y-1 focus:ring focus:ring-accent-light">
-                            Join Event Now!
-                        </a>
-                    </div>
-                </div>
             </div>
-        </div>
+
+            @if(session('success'))
+                <x-push-notification message="{{ session('success') }}" />
+            @endif
+
+            @if(session('error'))
+                <x-push-notification message="{{ session('error') }}" />
+            @endif
     </div>
 </x-app-layout>
+
+<script src="{{ asset('js/app.js') }}"></script>
+@stack('scripts')
