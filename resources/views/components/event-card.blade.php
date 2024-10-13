@@ -8,6 +8,15 @@
         <p class="mb-1 font-normal text-dark-main"><strong>Place: </strong>{{ $event->place }}</p>
         <p class="mb-2 font-normal text-dark-main text-sm "><strong>Capacity: </strong>{{ $event->capacity }}</p>
         <p class="mb-8 font-normal text-dark-main text-ellipsis line-clamp-2">{{ $event->description }}</p>
+
+        <div class="relative mb-2 font-semibold text-red-500 text-md h-1">
+            @if ($event->participants->count() == $event->capacity && !$event->participants()->where('user_id', Auth::id())->exists())
+                <p>Event is Full</p>
+            @elseif ($event->participants->count() == $event->capacity && $event->participants()->where('user_id', Auth::id())->exists())
+                <p>The event is full. You are a participant</p>
+            @endif
+        </div>
+
     </div>
     <div>
         <a href='/event/{{ $event->id }}' class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-dark-main hover:-translate-y-1 rounded-lg transition-all ease-in-out">
@@ -17,11 +26,20 @@
             </svg>
         </a>
 
-        @if($event->participants->count() < $event->capacity)
-            <form action="{{ route('events.join', $event->id) }}" method="POST" style="display:inline-block;">
-                @csrf
-                <button type="submit" class="bg-accent px-3 py-1.5 border-2 border-accent rounded-lg text-sm text-white hover:-translate-y-1 hover:border-dark-main transition-all ease-in-out">Join Event</button>
-            </form>
+        @if($event->participants()->where('user_id', Auth::id())->exists())
+        <form action="{{ route('events.leave', $event->id) }}" method="POST" style="display:inline-block;">
+            @csrf
+            <button type="submit" class="bg-accent px-3 py-1.5 border-2 border-accent rounded-lg text-sm text-white hover:-translate-y-1 hover:border-dark-main transition-all ease-in-out">Left Event</button>
+        </form>
+        @else
+            @if ($event->participants->count() < $event->capacity)
+                <form action="{{ route('events.join', $event->id) }}" method="POST" style="display:inline-block;">
+                    @csrf
+                    <button type="submit" class="bg-accent px-3 py-1.5 border-2 border-accent rounded-lg text-sm text-white hover:-translate-y-1 hover:border-dark-main transition-all ease-in-out">Join Event</button>
+                </form>
+            @else
+                <button type="submit" class="bg-gray-500 px-3 py-1.5 border-2 border-gray-500 rounded-lg text-sm text-white opacity-50 cursor-not-allowed" disabled>Join Event</button>
+            @endif
         @endif
 
         

@@ -78,15 +78,25 @@ class EventController extends Controller
         $event = Event::findOrFail($eventId);
 
         if($event->participants()->where('user_id', Auth::id())->exists()) {
-            return redirect()->back()->with('error', 'Anda sudah bergabung dalam event ini.');
+            return redirect()->back()->with('error', 'You are already registered as a participant in this event');
         }
 
         if($event->participants()->count() >= $event->capacity) {
-            return redirect()->back()->with('error', 'Kuota peserta event ini sudah penuh.');
+            return redirect()->back()->with('error', 'The quota of participants for this event is already full');
         }
 
         $event->participants()->attach(Auth::id(), ['joined_at' => now()]);
-        return redirect()->back()->with('error', 'Anda berhasil bergabung dalam event ini.');
+        return redirect()->back()->with('error', 'Successfully joined this event');
+    }
+
+    public function leave ($eventId) {
+        $event = Event::findOrFail($eventId);
+        if($event->participants()->where('user_id', Auth::id())->exists()) {
+            $event->participants()->detach(Auth::id());
+            return redirect()->back()->with('success', 'Successfully left this event');
+        }
+        
+        return redirect()->back()->with('error', 'You are not registered as a participant in this event');
     }
 
     /**

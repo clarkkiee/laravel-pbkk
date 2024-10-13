@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/event', [EventController::class, 'store'])->name('events.store');
 
     Route::post('/event/{id}/join', [EventController::class, 'join'])->name('events.join');
-
+    Route::post('/event/{id}/leave', [EventController::class, 'leave'])->name('events.leave');
     // Route::post('/participant/join', [ParticipantController::class, 'store'])->name('participants.store');
 
 });
