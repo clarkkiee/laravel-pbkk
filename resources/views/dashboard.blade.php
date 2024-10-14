@@ -46,14 +46,29 @@
                 
                 <div class="flex flex-col">
 
-                    <h1 class="text-2xl my-4 font-bold text-dark-main">Your Events</h1>
+                    <h1 class="text-2xl my-4 font-bold text-dark-main">Your Own Events</h1>
 
-                    @if ($events->isEmpty())
+                    @if ($createdEvents->isEmpty())
                         <p class="text-dark-main">You have not created any events yet.</p>
                     @else
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mx-auto">
-                            @foreach ($events as $event)
+                            @foreach ($createdEvents as $event)
                                 <x-event-card-creator :event="$event" />
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+
+                <div class="flex flex-col">
+
+                    <h1 class="text-2xl my-4 font-bold text-dark-main">Events Participated</h1>
+
+                    @if ($participatedEvents->isEmpty())
+                        <p class="text-dark-main">You have not joined any events.</p>
+                    @else
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mx-auto">
+                            @foreach ($participatedEvents as $event)
+                                <x-event-card :event="$event" />
                             @endforeach
                         </div>
                     @endif
