@@ -16,12 +16,12 @@
                     {{ __("You're logged in!") }}
                 </div>
             </div>
-        </div>
+        </div>  
         
 
-        <div class="flex flex-col gap-8 max-w-7xl mx-auto sm:px-6 lg:px-8 py-5">
+        <div class="flex flex-col gap-8 max-w-7xl mx-auto sm:px-6 lg:px-8 py-5 px-[7%]">
                 
-                <div class="flex gap-4">
+                <div class="flex gap-4 flex-col lg:flex-row">
                     
                     <div class="flex flex-col bg-dark-main shadow-lg rounded-lg overflow-hidden md:w-1/2 h-max">
                         <img src="{{ asset('images/create_event.jpg') }}" alt="Join Event" class="h-64 w-full object-cover rounded-md">
